@@ -23,7 +23,7 @@ import:
   # available, otherwise `xterm-256color` is used.
   #TERM: alacritty
 
-#window:
+window:
   # Window dimensions (changes require restart)
   #
   # Number of lines/columns (not pixels) in the terminal. Both lines and columns
@@ -47,11 +47,11 @@ import:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   #padding:
-  #  x: 0
-  #  y: 0
+    x: 5
+    y: 40
 
   # Spread additional padding evenly around the terminal content.
-  #dynamic_padding: false
+  #dynamic_padding: true
 
   # Window decorations
   #
@@ -110,7 +110,7 @@ import:
   #multiplier: 3
 
 # Font configuration
-#font:
+font:
   # Normal (roman) font face
   #normal:
     # Font family
@@ -158,7 +158,7 @@ import:
     #style: Bold Italic
 
   # Point size
-  #size: 11.0
+  size: 16.0
 
   # Offset is the extra space around each character. `offset.y` can be thought
   # of as modifying the line spacing, and `offset.x` as modifying the letter
