@@ -36,10 +36,10 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id feh --bg-fill ~/Pictures/fujisan.jpg
 
 # video / youtube video / gif
-#exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- mpv -wid WID --osc=no --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings https://www.youtube.com/watch?v=QEWV6fiYaDU
+exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- /usr/bin/mpv -wid WID -vo=gpu --osc=no --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings https://www.youtube.com/watch?v=QEWV6fiYaDU
 
 # camera
-exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- mpv -wid WID --audio=no --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg,framerate=30 --fps=30 --framedrop=no --no-correct-pts av://v4l2:/dev/video0
+#exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- mpv -wid WID --video-aspect=16:9 --profile=low-latency --audio=no --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg,framerate=30 --framedrop=no --no-correct-pts av://v4l2:/dev/video0
 
 # composer
 exec --no-startup-id picom -CGb --config ~/.config/picom.conf
@@ -52,10 +52,11 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
-
 exec --no-startup-id xinput set-prop 'RAZER Razer Mouse Dock' 300 -1
 exec --no-startup-id xinput set-prop 'Razer Razer Viper Ultimate Dongle' 300 -1
 exec --no-startup-id xset r rate 180 35
+
+exec --no-startup-id /usr/libexec/gsd-xsettings
 
 #exec --no-startup-id screenkey --opacity 0 -g 990x400-955-1000
 # Screen brightness keys
@@ -77,7 +78,8 @@ bindsym $mod+Shift+q kill
 bindsym $mod+d exec --no-startup-id "dmenu_run"
 #bindsym $mod+d exec --no-startup-id "rofi -modi drun,run -show drun"
 # A more modern dmenu replacement is rofi:
-#bindcode $mod+40 exec "rofi -modi drun,run -show drun"
+bindsym $mod+space exec "~/.config/rofi/launchers/type-2/launcher.sh"
+bindsym $mod+x exec "~/.config/rofi/powermenu/type-3/powermenu.sh"
 # There also is i3-dmenu-desktop which only displays applications shipping a
 # .desktop file. It is a wrapper around dmenu, so you need that installed.
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
@@ -124,7 +126,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+# bindsym $mod+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -175,6 +177,8 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+gaps inner 8
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
