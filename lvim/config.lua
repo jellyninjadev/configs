@@ -9,8 +9,10 @@ an executable
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+lvim.loaded_netrw = 1
+lvim.loaded_netrwPlugin = 1
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "gruvbox"
 lvim.transparent_window = true
 -- to disable icons and use a minimalist setup, uncomment the following
@@ -127,20 +129,20 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- end
 
 -- -- set a formatter, this will override the language server formatting capabilities (if it exists)
--- local formatters = require "lvim.lsp.null-ls.formatters"
--- formatters.setup {
---   { command = "black", filetypes = { "python" } },
---   { command = "isort", filetypes = { "python" } },
---   {
---     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
---     command = "prettier",
---     ---@usage arguments to pass to the formatter
---     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
---     extra_args = { "--print-with", "100" },
---     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
---     filetypes = { "typescript", "typescriptreact" },
---   },
--- }
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  { command = "black", filetypes = { "python" } },
+  -- { command = "isort", filetypes = { "python" } },
+  {
+    -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+    command = "prettier",
+    ---@usage arguments to pass to the formatter
+    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+    extra_args = { "--print-with", "100" },
+    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+    filetypes = { "typescript", "typescriptreact" },
+  },
+}
 
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
@@ -163,23 +165,21 @@ linters.setup {
 -- Additional Plugins
 lvim.plugins = {
   { "ellisonleao/gruvbox.nvim" },
+    event = { "VimEnter" },
+  {	"github/copilot.vim", },
   { "zbirenbaum/copilot.lua",
     event = { "VimEnter" },
     config = function()
       vim.defer_fn(function()
         require("copilot").setup {
-          plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
-          suggestions = {
-            enabled = true,
-            auto_trigger = true
-          }
+            plugin_manager_path = get_runtime_dir() .. "/site/pack/packer",
         }
       end, 100)
     end,
   },
-  { "zbirenbaum/copilot-cmp",
+{ "zbirenbaum/copilot-cmp",
     after = { "copilot.lua", "nvim-cmp" },
-  },
+  }, 
   { "folke/tokyonight.nvim" },
   {
     "folke/trouble.nvim",
