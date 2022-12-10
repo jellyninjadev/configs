@@ -36,10 +36,12 @@ exec --no-startup-id nm-applet
 #exec --no-startup-id feh --bg-fill ~/Pictures/fujisan.jpg
 
 # video / youtube video / gif
-exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- /usr/bin/mpv -wid WID -vo=gpu --osc=no --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings https://www.youtube.com/watch?v=QEWV6fiYaDU
+# - https://www.youtube.com/watch?v=DblbBQOL7jE
+# - https://www.youtube.com/watch?v=QEWV6fiYaDU
+exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -ov -fdt -argb -- /usr/bin/mpv -wid WID -vo=gpu --no-osc --no-osd-bar --loop-file --player-operation-mode=cplayer --no-audio --panscan=1.0 --no-input-default-bindings https://www.youtube.com/watch?v=DblbBQOL7jE
 
 # camera
-#exec --no-startup-id xwinwrap -ov -g 1920x1080+0+0 -ni -s -nf -b -un -- mpv -wid WID --video-aspect=16:9 --profile=low-latency --audio=no --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg,framerate=30 --framedrop=no --no-correct-pts av://v4l2:/dev/video0
+exec --no-startup-id xwinwrap -ov -g 1920x1080+1920+0 -ni -s -nf -b -un -- mpv -wid WID --video-aspect=16:9 --profile=low-latency --audio=no --demuxer-lavf-o=video_size=1920x1080,input_format=mjpeg,framerate=30 --framedrop=no --no-correct-pts av://v4l2:/dev/video2
 
 # composer
 exec --no-startup-id picom -CGb --config ~/.config/picom.conf
@@ -54,7 +56,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 
 exec --no-startup-id xinput set-prop 'RAZER Razer Mouse Dock' 300 -1
 exec --no-startup-id xinput set-prop 'Razer Razer Viper Ultimate Dongle' 300 -1
-exec --no-startup-id xset r rate 180 35
+exec --no-startup-id xset r rate 160 35
 
 exec --no-startup-id /usr/libexec/gsd-xsettings
 
@@ -178,7 +180,8 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
-gaps inner 8
+gaps inner 6
+gaps outer 4
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -188,10 +191,10 @@ mode "resize" {
         # Pressing right will grow the window’s width.
         # Pressing up will shrink the window’s height.
         # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym l resize shrink width 10 px or 10 ppt
+        bindsym j resize grow height 10 px or 10 ppt
+        bindsym k resize shrink height 10 px or 10 ppt
+        bindsym h resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -269,6 +272,7 @@ client.urgent           $base08 $base08 $base00 $base08 $base08
 client.placeholder      $base00 $base00 $base05 $base00 $base00
 client.background       $darkgray
 
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 0
 for_window [class="^.*"] client.focused
+for_window [class="^.*"] floating enable
 
